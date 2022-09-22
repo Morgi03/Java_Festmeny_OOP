@@ -1,6 +1,5 @@
 package hu.petrik.festmenyoop;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Festmeny {
@@ -49,10 +48,56 @@ public class Festmeny {
         this.elkelt = elkelt;
     }
 
-    public void licit(){
+    private double liciterteke = 0;
 
+    public double getLiciterteke() {
+        return liciterteke;
     }
-    public void licit(int mertek){
 
+    public void licit() {
+        if (!this.elkelt) {
+            if (licitekSzama == 0) {
+                this.licitekSzama++;
+                this.legutolsoLicitIdeje = LocalDateTime.now();
+                liciterteke = 100;
+            } else {
+                this.licitekSzama++;
+                this.legutolsoLicitIdeje = LocalDateTime.now();
+                liciterteke = Math.round((liciterteke + (liciterteke * 0.1))/10)*10;
+                int hossz = String.valueOf(liciterteke).length();
+                if (hossz > 5 && liciterteke % 1000 != 0) {
+                    liciterteke = Math.round(liciterteke / 100) * 100;
+                }
+            }
+        } else {
+            System.err.println("Hiba! A festmény már elkelt, nem lehet licitálni rá!");
+        }
+    }
+
+
+    public void licit(double mertek) {
+        if (!this.elkelt && mertek >= 10 && mertek <= 100) {
+            if (licitekSzama == 0) {
+                this.licitekSzama++;
+                this.legutolsoLicitIdeje = LocalDateTime.now();
+                liciterteke = mertek;
+            } else {
+                this.licitekSzama++;
+                this.legutolsoLicitIdeje = LocalDateTime.now();
+                double novelendo = (mertek/100);
+                liciterteke = Math.round(((liciterteke + (liciterteke * novelendo))/10)*10);
+                int hossz = String.valueOf(liciterteke).length();
+                if (hossz > 5 && liciterteke % 1000 != 0) {
+                    liciterteke = Math.round(liciterteke / 100) * 100;
+                }
+            }
+        } else {
+            System.err.println("Hiba! A festmény már elkelt, vagy hibás mértéket adott meg!");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.festo+": "+this.cim+" ("+this.stilus+")\n"+((this.elkelt) ? "elkelt\n" : "nem kelt el\n"+this.liciterteke+"$ - "+this.legutolsoLicitIdeje+" (összesen: "+this.licitekSzama+" db)");
     }
 }
