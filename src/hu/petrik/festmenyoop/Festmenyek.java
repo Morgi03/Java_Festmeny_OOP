@@ -51,13 +51,31 @@ public class Festmenyek {
         fr.close();
         br.close();
     }
-    public void licitXAlkalommal(int x){
-        Random r = new Random();
-            for (Festmeny f : this.festmenyek) {
-                for (int i = 0; i < 20; i++) {
-                    f.licit((r.nextInt(101-10)+10));
-                }
-            }
 
+    public void licitXAlkalommal(int x) {
+        Random r = new Random();
+        for (Festmeny f : this.festmenyek) {
+            for (int i = 0; i < 20; i++) {
+                f.licit((r.nextInt(101 - 10) + 10));
+            }
+        }
+
+    }
+
+    public void felhasznaloLicit() {
+        Scanner sc = new Scanner(System.in);
+        int index = 0;
+        while (index != -1) {
+            System.out.println("Add meg a festmény sorszámát a listában:");
+            index = sc.nextInt();
+            sc.nextLine();
+            index = index - 1;
+            if ( index > 0 && index < this.festmenyek.size()) {
+                //...
+            } else if (index == -1) {
+            } else {
+
+            }
+        }
     }
 }
