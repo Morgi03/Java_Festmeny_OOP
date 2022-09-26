@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public class AukcioProjekt {
     public static void main(String[] args) {
-    // test
-        Festmeny festmeny1 = new Festmeny("A harc","Gipsz Jakab","Gótikus");
+        // test
+        Festmeny festmeny1 = new Festmeny("A harc", "Gipsz Jakab", "Gótikus");
         festmeny1.licit();
         festmeny1.licit();
         festmeny1.licit(25);
@@ -15,7 +15,7 @@ public class AukcioProjekt {
         //2.feladat
         Festmenyek festmenyek = new Festmenyek();
         festmenyek.addFestmeny(festmeny1);
-        Festmeny festmeny2 = new Festmeny("Java óra","Morgován Nimród","Futurizmus");
+        Festmeny festmeny2 = new Festmeny("Java óra", "Morgován Nimród", "Futurizmus");
         festmenyek.addFestmeny(festmeny2);
         festmenyek.addFestmenyFelhasznalo();
         try {
@@ -25,5 +25,7 @@ public class AukcioProjekt {
         }
         festmenyek.licitXAlkalommal(20);
 
+        festmenyek.felhasznaloLicit();
+        festmenyek.kiir();
     }
 }

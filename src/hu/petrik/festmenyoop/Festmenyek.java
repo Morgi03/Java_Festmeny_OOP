@@ -62,20 +62,63 @@ public class Festmenyek {
 
     }
 
+    public static boolean isNum(String stringOrNum) {
+        if (stringOrNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(stringOrNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
     public void felhasznaloLicit() {
         Scanner sc = new Scanner(System.in);
         int index = 0;
+        String altind = "";
         while (index != -1) {
             System.out.println("Add meg a festmény sorszámát a listában:");
-            index = sc.nextInt();
-            sc.nextLine();
-            index = index - 1;
-            if ( index > 0 && index < this.festmenyek.size()) {
-                //...
-            } else if (index == -1) {
-            } else {
+            altind = sc.nextLine();
+            if (isNum(altind)) {
+                index = Integer.parseInt(altind);
+                index = index - 1;
 
+                if (index >= 0 && index < this.festmenyek.size()) {
+                    if (!festmenyek.get(index).getElkelt()) {
+                        System.out.println("Milyen mértékkel szeretne licitálni (%)?");
+                        altind = sc.nextLine();
+                        if (isNum(altind) || altind.isEmpty()) {
+                            if (altind.isEmpty()) {
+                                this.festmenyek.get(index).licit();
+                                this.festmenyek.get(index).setElkelt(true);
+                            } else {
+                                this.festmenyek.get(index).licit(Double.parseDouble(altind));
+                                this.festmenyek.get(index).setElkelt(true);
+                            }
+
+                        } else {
+                            System.out.println("Hiba! A megadott érték nem szám");
+                            break;
+                        }
+                    } else {
+                        System.err.println("Hiba! A megadott kép már elkelt");
+                    }
+                } else if (index == -1) {
+                } else {
+                    System.err.println("Hiba! A megadott érték nem egy létező sorszám!");
+                }
+
+            } else {
+                System.err.println("Hiba! A megadott érték nem szám!");
             }
+        }
+    }
+
+    public void kiir() {
+        for (Festmeny f : this.festmenyek) {
+            System.out.println(f);
         }
     }
 }
