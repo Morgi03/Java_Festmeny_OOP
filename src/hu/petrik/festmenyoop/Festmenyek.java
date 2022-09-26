@@ -1,13 +1,10 @@
 package hu.petrik.festmenyoop;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Festmenyek {
     private List<Festmeny> festmenyek;
@@ -121,4 +118,49 @@ public class Festmenyek {
             System.out.println(f);
         }
     }
+
+    //3. feladat
+    public void getLegdragabbanElkelt() {
+        int max = 0;
+        for (int i = 0; i < this.festmenyek.size(); i++) {
+            if (this.festmenyek.get(max).getElkelt() && this.festmenyek.get(i).getElkelt() && this.festmenyek.get(i).getLiciterteke() > this.festmenyek.get(max).getLiciterteke()) {
+                max = i;
+            }
+        }
+        System.out.println(this.festmenyek.get(max));
+    }
+
+    public boolean tiznelTobbLicit(){
+        for (Festmeny festmeny : this.festmenyek) {
+            if (festmeny.getLicitekSzama() > 10) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int elNemKeltFestmenyekSzama(){
+        int num = 0;
+        for (Festmeny festmeny : this.festmenyek) {
+            if (!festmeny.getElkelt()) {
+                num++;
+            }
+        }
+        return num;
+    }
+
+
+
+    static class festmenyOsszehasonlito implements Comparator<Festmeny> {
+
+        @Override
+        public int compare(Festmeny f1, Festmeny f2) {
+            return f2.getLiciterteke() - f1.getLiciterteke();
+        }
+    }
+    public void rendezesCsokkenoSorrendbe(){
+        List<Festmeny> rendezett = this.festmenyek.stream().sorted(new festmenyOsszehasonlito()).collect(Collectors.toList());
+        System.out.println(rendezett);
+    }
+
 }

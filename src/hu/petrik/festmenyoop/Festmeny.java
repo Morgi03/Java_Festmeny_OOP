@@ -50,8 +50,10 @@ public class Festmeny {
 
     private double liciterteke = 0;
 
-    public double getLiciterteke() {
-        return liciterteke;
+    public int getLiciterteke() {
+        String s = String.valueOf(liciterteke);
+          String a[] =  s.split("\\.");
+        return Integer.parseInt(a[0]);
     }
 
     public void licit() {
@@ -98,6 +100,6 @@ public class Festmeny {
 
     @Override
     public String toString() {
-        return this.festo+": "+this.cim+" ("+this.stilus+")\n"+((this.elkelt) ? "elkelt\n" : "nem kelt el\n"+this.liciterteke+"$ - "+this.legutolsoLicitIdeje+" (összesen: "+this.licitekSzama+" db)");
+        return this.festo+": "+this.cim+" ("+this.stilus+")\n"+((this.elkelt) ? "elkelt\n" : "nem kelt el\n"+this.getLiciterteke()+"$ - "+this.legutolsoLicitIdeje.toLocalDate()+" (összesen: "+this.licitekSzama+" db)");
     }
 }
